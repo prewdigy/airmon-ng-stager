@@ -1,0 +1,7 @@
+if you want to save the output of the airodump scan to a file use this option:
+
+airodump-ng -w <outputfilename.format> <adapter-name>
+
+if you would like to change the format of the out put you can use:
+
+airodump-ng -w <outputfilename.csv> --output-format csv <adapter-name>
