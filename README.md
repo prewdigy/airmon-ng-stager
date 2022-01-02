@@ -1,2 +1,2 @@
-This is just a couple fun hacking scripts Ive been writing during my info-sec bootcamp.
-Its been alot of fun, I'm sure theres alot more efficient ways to do just about all of this.
+This is just a couple wifi hacking scripts Ive been writing during my info-sec bootcamp.
+Its been a lot of fun, I'm sure theres many more efficient ways to do what these scripts do, this is just for practice writing in shell.
