@@ -1,6 +1,6 @@
 #/bin/bash
 
-chmod u+x dump2.sh
+chmod u+x airodump.sh
 
 #maybe make the script check to see if aircrack-ng is installed yet and install it for the user
 
@@ -24,7 +24,7 @@ read adptNum
 
 #need to convert adaptNum to the actual name of the adapter and make it = $adapt
 
-adapt=$("airmon-ng | grep "phy" | awk '{print $2}' | sed -n "$adptNum"p")
+adapt=$(airmon-ng | grep "phy" | awk '{print $2}' | sed -n "$adptNum"p)
 
 #step 3 : restart and set wifi adapters to monitor mode (for)
 
@@ -44,7 +44,7 @@ do
 	wait -n
 	iwconfig $wifi mode monitor
 	wait -n
-	airmon-ng start $wifi
+	airmon-ng start $wifi > /dev/null
 	wait -n
 done
 
@@ -52,11 +52,11 @@ echo "done."
 
 echo "Reseting ethernet adapter"
 
-if [$eth == "Y"] || [$eth == "y"] || [$eth == "yes"] || [$eth == "Yes"] then
+if [ $eth == "Y" ] || [ $eth == "y" ] || [ $eth == "yes" ] || [ $eth == "Yes" ]
 
+then
 systemctl restart NetworkManager.service
 echo "Net-manager.d reset, please check ethernet connection stability..."
-
 fi
 
 #step 3 : display usable adapters for choice of adapter
@@ -74,10 +74,12 @@ read save
 echo "What format would you like it to save the scan results as?"
 
 #counts the amount of formats
-forms=".csv \n.txt \n.xml"
+forms=$(echo ".csv
+.txt
+.xml")
 
 #setting f = the number of choices there are in the list of formats
-f="$(echo $forms | wc -l)"
+f="$(echo $forms | wc -w)"
 
 echo "(Available formats: [1-$f])"
 echo "$forms" | awk 'NR==1,NR==3{print NR": "$0}'
@@ -99,17 +101,17 @@ if [ $ghz == "Y" ] || [ $ghz == "y" ] || [ $ghz == "yes" ] || [ $ghz == "Yes" ] 
 
 then
 	echo "Saving output of 2.4ghz scan."
-	airodump-ng -w dump.scan --output-format $fmt $adapt
+	airodump-ng -w dump.scan --beacons --output-format $fmt $adapt
 
 fi
 
 #both 2.4ghz and 5ghz with save chosen
 
-if [$save == "Y" ] || [ $save == "y" ] || [ $save == "yes" ] || [ $save == "Yes" ]
+if [ $save == "Y" ] || [ $save == "y" ] || [ $save == "yes" ] || [ $save == "Yes" ]
 
 then
 	echo "Saving output of full frequency scan."
-	airodump-ng -b a --output-format $save $adapt
+	airodump-ng -b a --beacons --output-format $save $adapt
 
 fi
 
