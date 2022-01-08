@@ -1,3 +1,13 @@
+# Aircrack
+
+installing aircrack 
+
+```sudo apt-get install realtek-rtl88xxau-dkms
+sudo aurmon-ng check kill
+sudo airmon-ng start wlan0
+
+```
+
 --------------------------------------------------------------------------------- 
 Aircrack - (Airmon) sudo apt-get install realtek-rtl88xxau-dkms 
 sudo airmon-ng check kill sudo airmon-ng start wlan0 
